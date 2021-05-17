@@ -1,0 +1,15 @@
+@value makerMint from "../../common/colors.css";
+@value makerWhite from "../../common/colors.css";
+.footer {
+  background-color: makerMint;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0px;
+}
+.title {
+  color: makerWhite;
+  padding: 5px 10px;
+  font-family: "Pangolin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+}
