@@ -41,7 +41,7 @@ const Home = (props) => {
             className={`${styles.socialLogin} ${styles.button} ${styles.github}`}
           >
             <i className={`fab fa-github ${styles.socialIcon}`}></i>
-            Continue with Github
+            Continue with Github →
           </button>
           <button
             type="button"
@@ -49,7 +49,7 @@ const Home = (props) => {
             className={`${styles.socialLogin} ${styles.button} ${styles.kakao}`}
           >
             <i className={`fas fa-comments ${styles.socialIcon}`}></i>
-            Continue with Kakao
+            Continue with Kakao →
           </button>
         </div>
         <Footer />
