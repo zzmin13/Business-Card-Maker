@@ -1,8 +1,10 @@
 import React, { memo, useState } from "react";
+import { useHistory } from "react-router";
 import styles from "./header.module.css";
 
 const Header = memo((props) => {
-  const { loginUser, avatarUrl } = props;
+  const { authService, loginUser, avatarUrl } = props;
+  const history = useHistory();
   const [display, setDisplay] = useState(styles.invisible);
   const showLogoutBtn = () => {
     if (display === styles.visible) {
@@ -10,6 +12,9 @@ const Header = memo((props) => {
     } else {
       setDisplay(styles.visible);
     }
+  };
+  const handleLogout = () => {
+    authService.logout();
   };
   console.log(`header`);
   return (
@@ -24,7 +29,10 @@ const Header = memo((props) => {
             className={styles.profile}
             onClick={showLogoutBtn}
           />
-          <button className={`${styles.logout_button} ${display}`}>
+          <button
+            className={`${styles.logout_button} ${display}`}
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </>

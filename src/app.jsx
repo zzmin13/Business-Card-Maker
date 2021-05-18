@@ -2,7 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "./service/firebaseStart";
 import "./app.css";
 import Home from "./routes/home/home";
-import Main from "./components/main/main";
+import Maker from "./components/maker/maker";
 
 function App({ authService }) {
   return (
@@ -17,9 +17,9 @@ function App({ authService }) {
         )}
       />
       <Route
-        path={"/app"}
+        path={"/maker"}
         exact={true}
-        render={(props) => <Main authService={authService} {...props} />}
+        render={(props) => <Maker authService={authService} {...props} />}
       />
     </BrowserRouter>
   );

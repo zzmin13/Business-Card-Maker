@@ -2,7 +2,6 @@ import firebase from "firebase";
 
 class AuthService {
   login(providerName) {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
     const authProvider = new firebase.auth[`${providerName}AuthProvider`]();
     return firebase
       .auth()
@@ -10,6 +9,14 @@ class AuthService {
       .catch((error) => {
         console.log(error);
       });
+  }
+  logout() {
+    return firebase.auth().signOut();
+  }
+  onAuthChange(onUserChanged) {
+    firebase.auth().onAuthStateChanged((user) => {
+      onUserChanged(user);
+    });
   }
   userExist() {
     const user = firebase.auth().currentUser;

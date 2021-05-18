@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { useHistory } from "react-router";
 import Footer from "../footer/footer";
 import Header from "../header/header";
@@ -6,13 +6,24 @@ import styles from "./login.module.css";
 
 const Login = memo(({ authService }) => {
   const history = useHistory();
+  const goToMaker = (userId) => {
+    history.push({
+      pathname: "/maker",
+      state: {
+        id: userId,
+      },
+    });
+  };
   const handleOAuthLogin = (event) => {
     authService
-      .login(event.target.name) //
-      .then(() => {
-        history.push("/app");
-      });
+      .login(event.currentTarget.name) //
+      .then((data) => goToMaker(data.user.uid));
   };
+  useEffect(() => {
+    authService.onAuthChange((user) => {
+      user && goToMaker(user.uid);
+    });
+  });
   console.log(`login`);
   return (
     <section className={styles.home}>
