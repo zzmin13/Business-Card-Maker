@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px 0px;
+  position: relative;
 }
 .title {
   font-size: 1.4rem;
@@ -18,4 +19,50 @@
   width: 30px;
   height: 25px;
   margin-right: 5px;
+}
+
+.profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.logout_button {
+  border: none;
+  position: absolute;
+  background: #5677f4;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20rem;
+  top: 50px;
+  right: 10px;
+  font-size: 11pt;
+  box-shadow: 2px 2px 3px #d1d1d1;
+}
+.logout_button::after {
+  bottom: 100%;
+  transform: translate(-1px, 3px);
+  right: 13px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(56, 77, 157, 0);
+  border-bottom-color: #5677f4;
+  border-width: 11px;
+  margin-left: -20px;
+}
+
+.invisible {
+  display: none;
+}
+
+.visible {
+  display: flex;
 }

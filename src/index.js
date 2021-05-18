@@ -4,12 +4,12 @@ import "./common/reset.css";
 import "./index.module.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import App from "./app";
-import Firebase from "./service/firebase";
+import AuthService from "./service/auth_service";
 
-const FireBase = new Firebase();
+const authService = new AuthService();
 ReactDOM.render(
   <React.StrictMode>
-    <App FireBase={FireBase} />
+    <App authService={authService} />
   </React.StrictMode>,
   document.getElementById("root")
 );

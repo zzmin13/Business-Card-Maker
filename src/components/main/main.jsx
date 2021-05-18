@@ -1,11 +1,22 @@
-import React from "react";
+import React, { memo } from "react";
+import Footer from "../footer/footer";
+import Header from "../header/header";
+import styles from "./main.module.css";
 
-const Main = (props) => {
+const Main = memo((props) => {
+  const { authService } = props;
+  console.log(authService);
+  const loginUser = authService.userExist();
+  const avatarUrl = loginUser ? loginUser.photoURL : "";
+  console.log(avatarUrl);
+  console.log(`main`);
   return (
-    <>
-      <h1>main</h1>
-    </>
+    <div className={styles.container}>
+      <Header loginUser={loginUser} avatarUrl={avatarUrl} />
+      <section className={styles.main}>메인 페이지 입니다.</section>
+      <Footer />
+    </div>
   );
-};
+});
 
 export default Main;

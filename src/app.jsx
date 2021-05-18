@@ -2,8 +2,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "./service/firebaseStart";
 import "./app.css";
 import Home from "./routes/home/home";
+import Main from "./components/main/main";
 
-function App({ FireBase }) {
+function App({ authService }) {
   return (
     <BrowserRouter>
       <Route
@@ -11,9 +12,14 @@ function App({ FireBase }) {
         exact={true}
         render={(props) => (
           <>
-            <Home FireBase={FireBase} {...props} />
+            <Home authService={authService} {...props} />
           </>
         )}
+      />
+      <Route
+        path={"/app"}
+        exact={true}
+        render={(props) => <Main authService={authService} {...props} />}
       />
     </BrowserRouter>
   );
