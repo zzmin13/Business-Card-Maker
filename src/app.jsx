@@ -1,10 +1,9 @@
 import { BrowserRouter, Route } from "react-router-dom";
+import "./service/firebaseStart";
 import "./app.css";
-import Footer from "./components/footer/footer";
-import Header from "./components/header/header";
 import Home from "./routes/home/home";
 
-function App() {
+function App({ FireBase }) {
   return (
     <BrowserRouter>
       <Route
@@ -12,7 +11,7 @@ function App() {
         exact={true}
         render={(props) => (
           <>
-            <Home {...props} />
+            <Home FireBase={FireBase} {...props} />
           </>
         )}
       />
