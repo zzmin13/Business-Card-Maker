@@ -20,6 +20,7 @@ class Firebase {
         .signInWithPopup(provider)
         .then((result) => {
           console.log(`로그인에 성공하였습니다.`);
+          return result;
         })
         .catch((error) => {
           console.log(error);

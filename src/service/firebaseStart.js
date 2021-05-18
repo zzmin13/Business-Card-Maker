@@ -5,10 +5,9 @@ const APP_ID = process.env.REACT_APP_FIREBASE_APP_ID;
 const firebaseConfig = {
   apiKey: `${API_KEY}`,
   authDomain: `${PROJECT_ID}.firebaseapp.com`,
+  databaseURL: `https://${PROJECT_ID}-default-rtdb.firebaseio.com/`,
   projectId: `${PROJECT_ID}`,
-  messagingSenderId: "506952040370",
   appId: `${APP_ID}`,
-  measurementId: "G-PGB7ZS3L6Y",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
