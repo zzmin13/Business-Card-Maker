@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./card_preview.module.css";
+import styles from "./preview.module.css";
 
-const CardPreview = (props) => {
+const Preview = (props) => {
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>Card Preview</h1>
@@ -9,4 +9,4 @@ const CardPreview = (props) => {
   );
 };
 
-export default CardPreview;
+export default Preview;

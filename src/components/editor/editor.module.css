@@ -1,0 +1,26 @@
+.container {
+  width: 50%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  /* background-color: aqua; */
+}
+.title {
+  font-weight: 600;
+  padding: 20px 0px;
+  height: fit-content;
+}
+
+/* tablet(768~1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: 100%;
+  }
+}
+
+/* mobile(~768px) */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}

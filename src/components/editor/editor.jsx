@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./card_maker.module.css";
+import styles from "./editor.module.css";
 
-const CardMaker = (props) => {
+const Editor = (props) => {
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>Card Maker</h1>
@@ -9,4 +9,4 @@ const CardMaker = (props) => {
   );
 };
 
-export default CardMaker;
+export default Editor;

@@ -7,7 +7,6 @@
 
 .main {
   width: 100%;
-  flex: 1;
   display: flex;
 }
 
@@ -16,4 +15,18 @@
   margin: 0;
   border: 0.3px solid #f5f5f5;
   background-color: #f5f5f5;
+}
+
+/* tablet(768~1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .main {
+    flex-direction: column;
+  }
+}
+
+/* mobile(~768px) */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
 }

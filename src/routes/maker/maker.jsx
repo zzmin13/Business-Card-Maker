@@ -1,10 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import CardMaker from "../../components/card_maker/card_maker";
-import CardPreview from "../../components/card_preview/card_preview";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import styles from "./maker.module.css";
+import Preview from "../../components/preview/preview";
+import Editor from "../../components/editor/editor";
 
 const Maker = memo((props) => {
   const { authService } = props;
@@ -29,9 +29,9 @@ const Maker = memo((props) => {
         avatarUrl={loginUser.photoURL}
       />
       <div className={styles.main}>
-        <CardMaker />
+        <Editor />
         <hr className={styles.line} />
-        <CardPreview />
+        <Preview />
       </div>
       <Footer />
     </div>
