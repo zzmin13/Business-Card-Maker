@@ -12,17 +12,21 @@ const Card = ({
     themeType = styles.colorful;
   }
   return (
-    <div className={`${styles.card_container} ${themeType}`}>
-      <img className={styles.image} src={fileURL} alt="card_image" />
+    <li className={`${styles.card_container} ${themeType}`}>
+      <img
+        className={styles.image}
+        src={fileURL ? fileURL : "/images/unnamed.jpg"}
+        alt="card_image"
+      />
       <div className={styles.metadata}>
         <h1 className={styles.name}>{name}</h1>
-        <h1 className={styles.company}>{company}</h1>
+        <p className={styles.company}>{company}</p>
         <hr className={`${styles.line} ${themeType}`} />
-        <h1 className={styles.title}>{title}</h1>
-        <h1 className={styles.email}>{email}</h1>
-        <h1 className={styles.message}>{message}</h1>
+        <p className={styles.title}>{title}</p>
+        <p className={styles.email}>{email}</p>
+        <p className={styles.message}>{message}</p>
       </div>
-    </div>
+    </li>
   );
 };
 

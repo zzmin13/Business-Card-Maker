@@ -4,7 +4,7 @@
     "Helvetica Neue", sans-serif;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   width: 350px;
-  height: 200px;
+  height: 180px;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -37,14 +37,11 @@
   justify-content: center;
 }
 .name {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   margin-bottom: 7px;
 }
-.company {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
+
 .line {
   width: 90%;
   margin: 0;
@@ -58,11 +55,10 @@
   background-color: white;
   border: 0.3px solid white;
 }
-.title {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
-.email {
+.company,
+.title,
+.email,
+.message {
   font-size: 0.8rem;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }

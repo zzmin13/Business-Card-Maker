@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./cardForm.module.css";
+import styles from "./editForm.module.css";
 
-const CardForm = ({
+const EditForm = ({
   card: { name, company, title, email, theme, message, fileURL, id },
 }) => {
   return (
@@ -52,20 +52,10 @@ const CardForm = ({
           <h1>Select Image</h1>
         </label>
         <input type="file" id="input-file" style={{ display: "none" }} />
-        <select className={styles.input} name="theme">
-          <option value="">Theme Select</option>
-          <option value="light" selected={theme === "light" ? true : false}>
-            light
-          </option>
-          <option value="dark" selected={theme === "dark" ? true : false}>
-            dark
-          </option>
-          <option
-            value="colorful"
-            selected={theme === "colorful" ? true : false}
-          >
-            colorful
-          </option>
+        <select className={styles.input} name="theme" value={theme}>
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+          <option value="colorful">colorful</option>
         </select>
         <button className={`${styles.delete_button} ${styles.input}`}>
           Delete
@@ -75,4 +65,4 @@ const CardForm = ({
   );
 };
 
-export default CardForm;
+export default EditForm;

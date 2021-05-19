@@ -7,11 +7,11 @@ const Preview = (props) => {
   return (
     <section className={styles.container}>
       <span className={styles.title}>Card Preview</span>
-      <div className={styles.cards}>
+      <ul className={styles.cards}>
         {cards.map((card) => {
           return <Card key={card.id} card={card} />;
         })}
-      </div>
+      </ul>
     </section>
   );
 };
