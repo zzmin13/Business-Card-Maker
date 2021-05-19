@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./cardForm.module.css";
 
-const CardForm = ({ card }) => {
+const CardForm = ({
+  card: { name, company, title, email, theme, message, fileURL, id },
+}) => {
   return (
     <form className={styles.editform}>
       <div className={styles.inputbox}>
@@ -10,12 +12,14 @@ const CardForm = ({ card }) => {
           type="text"
           name="name"
           placeholder="Name"
+          value={name}
         />
         <input
           className={styles.input}
           type="text"
           name="company"
           placeholder="Company"
+          value={company}
         />
       </div>
       <div className={styles.inputbox}>
@@ -24,18 +28,21 @@ const CardForm = ({ card }) => {
           type="text"
           name="title"
           placeholder="Title"
+          value={title}
         />
         <input
           className={styles.input}
           type="email"
           name="email"
           placeholder="Email"
+          value={email}
         />
       </div>
       <textarea
         className={styles.textarea}
-        name="saying"
+        name="message"
         placeholder="Write down what you want to say."
+        value={message}
       />
       <div className={styles.inputbox}>
         <label
@@ -47,11 +54,18 @@ const CardForm = ({ card }) => {
         <input type="file" id="input-file" style={{ display: "none" }} />
         <select className={styles.input} name="theme">
           <option value="">Theme Select</option>
-          <option value="light" selected="selected">
+          <option value="light" selected={theme === "light" ? true : false}>
             light
           </option>
-          <option value="dark">dark</option>
-          <option value="colorful">colorful</option>
+          <option value="dark" selected={theme === "dark" ? true : false}>
+            dark
+          </option>
+          <option
+            value="colorful"
+            selected={theme === "colorful" ? true : false}
+          >
+            colorful
+          </option>
         </select>
         <button className={`${styles.delete_button} ${styles.input}`}>
           Delete
