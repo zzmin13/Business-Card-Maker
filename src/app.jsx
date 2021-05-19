@@ -2,7 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "./service/firebaseStart";
 import "./app.css";
 import Home from "./routes/home/home";
-import Maker from "./components/maker/maker";
+import Maker from "./routes/maker/maker";
 
 function App({ authService }) {
   return (

@@ -1,10 +1,8 @@
 import React, { memo, useState } from "react";
-import { useHistory } from "react-router";
 import styles from "./header.module.css";
 
 const Header = memo((props) => {
   const { authService, loginUser, avatarUrl } = props;
-  const history = useHistory();
   const [display, setDisplay] = useState(styles.invisible);
   const showLogoutBtn = () => {
     if (display === styles.visible) {

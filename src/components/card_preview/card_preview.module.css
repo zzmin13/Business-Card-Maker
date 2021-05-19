@@ -1,0 +1,11 @@
+.container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  /* background-color: yellow; */
+}
+.title {
+  font-weight: 600;
+  padding: 20px 0px;
+  height: fit-content;
+}
