@@ -3,7 +3,14 @@ import styles from "./editForm.module.css";
 
 const EditForm = ({
   card: { name, company, title, email, theme, message, fileURL, id },
+  onDelete,
 }) => {
+  const handleDelete = () => {
+    const answer = window.confirm("삭제하시겠습니까?");
+    if (answer === true) {
+      onDelete(id);
+    }
+  };
   return (
     <form className={styles.editform}>
       <div className={styles.inputbox}>
@@ -57,7 +64,10 @@ const EditForm = ({
           <option value="dark">dark</option>
           <option value="colorful">colorful</option>
         </select>
-        <button className={`${styles.delete_button} ${styles.input}`}>
+        <button
+          onClick={handleDelete}
+          className={`${styles.delete_button} ${styles.input}`}
+        >
           Delete
         </button>
       </div>

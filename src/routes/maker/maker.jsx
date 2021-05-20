@@ -8,10 +8,8 @@ import Editor from "../../components/editor/editor";
 
 const Maker = memo((props) => {
   const { authService } = props;
+  const history = useHistory();
   const [loginUser, setLoginUser] = useState("");
-  const addCard = useCallback((newCard) => {
-    setCards([...cards, newCard]);
-  }, []);
   const [cards, setCards] = useState([
     {
       name: "Ryan",
@@ -44,9 +42,7 @@ const Maker = memo((props) => {
       id: "3",
     },
   ]);
-  const history = useHistory();
 
-  console.log(`main`);
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (!user) {
@@ -56,6 +52,22 @@ const Maker = memo((props) => {
       }
     });
   });
+
+  const addCard = useCallback((newCard) => {
+    setCards([...cards, newCard]);
+  }, []);
+
+  const onDelete = useCallback(
+    (id) => {
+      const newCards = cards.filter((card) => {
+        return card.id !== id;
+      });
+      setCards(newCards);
+    },
+    [cards]
+  );
+
+  console.log(`main`);
   return (
     <div className={styles.container}>
       <Header
@@ -64,7 +76,7 @@ const Maker = memo((props) => {
         avatarUrl={loginUser.photoURL}
       />
       <div className={styles.main}>
-        <Editor cards={cards} addCard={addCard} />
+        <Editor cards={cards} addCard={addCard} onDelete={onDelete} />
         <hr className={styles.line} />
         <Preview cards={cards} />
       </div>
