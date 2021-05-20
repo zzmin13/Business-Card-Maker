@@ -7,7 +7,7 @@ import Preview from "../../components/preview/preview";
 import Editor from "../../components/editor/editor";
 
 const Maker = memo((props) => {
-  const { authService } = props;
+  const { authService, uploadCloudinary } = props;
   const history = useHistory();
   const [cards, setCards] = useState({
     1: {
@@ -18,6 +18,7 @@ const Maker = memo((props) => {
       theme: "dark",
       message: "Effort doesn't betray me.",
       fileURL: null,
+      fileName: null,
       id: "1",
     },
     2: {
@@ -28,6 +29,7 @@ const Maker = memo((props) => {
       theme: "light",
       message: "Don't give up on your dream.",
       fileURL: null,
+      fileName: null,
       id: "2",
     },
     3: {
@@ -38,6 +40,7 @@ const Maker = memo((props) => {
       theme: "colorful",
       message: "Let's keep going!",
       fileURL: null,
+      fileName: null,
       id: "3",
     },
   });
@@ -64,6 +67,7 @@ const Maker = memo((props) => {
       return changedCards;
     });
   }, []);
+
   const updateCard = useCallback((updatedCard) => {
     setCards((cards) => {
       const changedCards = { ...cards };
@@ -82,6 +86,7 @@ const Maker = memo((props) => {
           addCard={addCard}
           deleteCard={deleteCard}
           updateCard={updateCard}
+          uploadCloudinary={uploadCloudinary}
         />
         <hr className={styles.line} />
         <Preview cards={cards} />

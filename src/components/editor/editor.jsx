@@ -3,7 +3,13 @@ import AddForm from "../addForm/addForm";
 import EditForm from "../editForm/editForm";
 import styles from "./editor.module.css";
 
-const Editor = ({ cards, addCard, deleteCard, updateCard }) => {
+const Editor = ({
+  cards,
+  addCard,
+  deleteCard,
+  updateCard,
+  uploadCloudinary,
+}) => {
   console.log(`editor`);
   return (
     <section className={styles.container}>
@@ -16,6 +22,7 @@ const Editor = ({ cards, addCard, deleteCard, updateCard }) => {
               card={cards[key]}
               deleteCard={deleteCard}
               updateCard={updateCard}
+              uploadCloudinary={uploadCloudinary}
             />
           );
         })}
