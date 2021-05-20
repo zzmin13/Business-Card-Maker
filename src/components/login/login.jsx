@@ -27,7 +27,7 @@ const Login = memo(({ authService }) => {
   console.log(`login`);
   return (
     <section className={styles.home}>
-      <Header />
+      <Header authService={authService} />
       <section className={styles.loginBox}>
         <h1 className={styles.title}>LOGIN</h1>
         <form className={styles.form}>

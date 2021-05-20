@@ -9,9 +9,8 @@ import Editor from "../../components/editor/editor";
 const Maker = memo((props) => {
   const { authService } = props;
   const history = useHistory();
-  const [loginUser, setLoginUser] = useState("");
-  const [cards, setCards] = useState([
-    {
+  const [cards, setCards] = useState({
+    1: {
       name: "Ryan",
       company: "Kakao",
       title: "Web Developer",
@@ -21,7 +20,7 @@ const Maker = memo((props) => {
       fileURL: null,
       id: "1",
     },
-    {
+    2: {
       name: "Apeach",
       company: "Line",
       title: "Designer",
@@ -31,7 +30,7 @@ const Maker = memo((props) => {
       fileURL: null,
       id: "2",
     },
-    {
+    3: {
       name: "Jordy",
       company: "Naver",
       title: "Product Manager",
@@ -41,55 +40,48 @@ const Maker = memo((props) => {
       fileURL: null,
       id: "3",
     },
-  ]);
+  });
 
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (!user) {
         history.push("/");
-      } else {
-        setLoginUser(authService.userExist());
       }
     });
   });
 
-  const addCard = useCallback((newCard) => {
-    setCards([...cards, newCard]);
-  }, []);
-
-  const onDelete = useCallback(
-    (id) => {
-      const newCards = cards.filter((card) => {
-        return card.id !== id;
-      });
-      setCards(newCards);
+  const addCard = useCallback(
+    (newCard) => {
+      setCards({ ...cards, [newCard.id]: newCard });
     },
     [cards]
   );
-  const handleChange = (id, attribute, value) => {
-    const changeCard = cards.map((card) => {
-      if (card.id === id) {
-        card[attribute] = value;
-      }
-      return card;
-    });
-    setCards(changeCard);
-  };
 
-  console.log(`main`);
+  const deleteCard = useCallback((id) => {
+    setCards((cards) => {
+      const changedCards = { ...cards };
+      delete changedCards[id];
+      return changedCards;
+    });
+  }, []);
+  const updateCard = useCallback((updatedCard) => {
+    setCards((cards) => {
+      const changedCards = { ...cards };
+      changedCards[updatedCard.id] = updatedCard;
+      return changedCards;
+    });
+  }, []);
+
+  console.log(`maker`);
   return (
     <div className={styles.container}>
-      <Header
-        authService={authService}
-        loginUser={loginUser}
-        avatarUrl={loginUser.photoURL}
-      />
+      <Header authService={authService} />
       <div className={styles.main}>
         <Editor
           cards={cards}
           addCard={addCard}
-          onDelete={onDelete}
-          handleChange={handleChange}
+          deleteCard={deleteCard}
+          updateCard={updateCard}
         />
         <hr className={styles.line} />
         <Preview cards={cards} />

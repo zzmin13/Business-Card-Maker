@@ -2,24 +2,23 @@ import React from "react";
 import styles from "./editForm.module.css";
 
 const EditForm = ({
+  card,
   card: { name, company, title, email, theme, message, fileURL, id },
-  onDelete,
-  handleChange,
+  deleteCard,
+  updateCard,
 }) => {
   const handleDelete = () => {
-    const answer = window.confirm("삭제하시겠습니까?");
-    if (answer === true) {
-      onDelete(id);
-    } else {
-      alert("취소되었습니다.");
-    }
+    deleteCard(id);
   };
   const onChange = (event) => {
-    // console.log(`change`);
     const attribute = event.currentTarget.name;
     const value = event.currentTarget.value;
-    handleChange(id, attribute, value);
+    updateCard({
+      ...card,
+      [attribute]: value,
+    });
   };
+  console.log(`editForm`);
   return (
     <form className={styles.editform}>
       <div className={styles.inputbox}>

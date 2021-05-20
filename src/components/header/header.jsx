@@ -1,9 +1,20 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./header.module.css";
 
 const Header = memo((props) => {
-  const { authService, loginUser, avatarUrl } = props;
+  const { authService } = props;
+  const [loginUser, setLoginUser] = useState();
   const [display, setDisplay] = useState(styles.invisible);
+  useEffect(() => {
+    authService.onAuthChange((user) => {
+      if (user) {
+        setLoginUser(authService.userExist());
+      }
+    });
+    return () => {
+      setLoginUser(null);
+    };
+  }, []);
   const showLogoutBtn = () => {
     if (display === styles.visible) {
       setDisplay(styles.invisible);
@@ -15,6 +26,7 @@ const Header = memo((props) => {
     authService.logout();
   };
   console.log(`header`);
+
   return (
     <header className={styles.header}>
       <img src="/favicon.ico" alt="icon" className={styles.icon} />
@@ -22,7 +34,7 @@ const Header = memo((props) => {
       {loginUser ? (
         <>
           <img
-            src={avatarUrl}
+            src={loginUser.photoURL}
             alt="profile"
             className={styles.profile}
             onClick={showLogoutBtn}
