@@ -66,6 +66,15 @@ const Maker = memo((props) => {
     },
     [cards]
   );
+  const handleChange = (id, attribute, value) => {
+    const changeCard = cards.map((card) => {
+      if (card.id === id) {
+        card[attribute] = value;
+      }
+      return card;
+    });
+    setCards(changeCard);
+  };
 
   console.log(`main`);
   return (
@@ -76,7 +85,12 @@ const Maker = memo((props) => {
         avatarUrl={loginUser.photoURL}
       />
       <div className={styles.main}>
-        <Editor cards={cards} addCard={addCard} onDelete={onDelete} />
+        <Editor
+          cards={cards}
+          addCard={addCard}
+          onDelete={onDelete}
+          handleChange={handleChange}
+        />
         <hr className={styles.line} />
         <Preview cards={cards} />
       </div>

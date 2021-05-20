@@ -71,7 +71,7 @@ const AddForm = memo(({ addCard }) => {
         <div className={styles.inputbox}>
           <label
             className={`${styles.file_button} ${styles.input}`}
-            for="input-file"
+            htmlFor="input-file"
           >
             <h1>Select Image</h1>
           </label>

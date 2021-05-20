@@ -4,12 +4,21 @@ import styles from "./editForm.module.css";
 const EditForm = ({
   card: { name, company, title, email, theme, message, fileURL, id },
   onDelete,
+  handleChange,
 }) => {
   const handleDelete = () => {
     const answer = window.confirm("삭제하시겠습니까?");
     if (answer === true) {
       onDelete(id);
+    } else {
+      alert("취소되었습니다.");
     }
+  };
+  const onChange = (event) => {
+    // console.log(`change`);
+    const attribute = event.currentTarget.name;
+    const value = event.currentTarget.value;
+    handleChange(id, attribute, value);
   };
   return (
     <form className={styles.editform}>
@@ -19,14 +28,16 @@ const EditForm = ({
           type="text"
           name="name"
           placeholder="Name"
-          value={name}
+          defaultValue={name}
+          onChange={onChange}
         />
         <input
           className={styles.input}
           type="text"
           name="company"
           placeholder="Company"
-          value={company}
+          defaultValue={company}
+          onChange={onChange}
         />
       </div>
       <div className={styles.inputbox}>
@@ -35,31 +46,44 @@ const EditForm = ({
           type="text"
           name="title"
           placeholder="Title"
-          value={title}
+          defaultValue={title}
+          onChange={onChange}
         />
         <input
           className={styles.input}
           type="email"
           name="email"
           placeholder="Email"
-          value={email}
+          defaultValue={email}
+          onChange={onChange}
         />
       </div>
       <textarea
         className={styles.textarea}
         name="message"
         placeholder="Write down what you want to say."
-        value={message}
+        defaultValue={message}
+        onChange={onChange}
       />
       <div className={styles.inputbox}>
         <label
           className={`${styles.file_button} ${styles.input}`}
-          for="input-file"
+          htmlFor="input-file"
         >
           <h1>Select Image</h1>
         </label>
-        <input type="file" id="input-file" style={{ display: "none" }} />
-        <select className={styles.input} name="theme" value={theme}>
+        <input
+          type="file"
+          id="input-file"
+          style={{ display: "none" }}
+          onChange={onChange}
+        />
+        <select
+          onChange={onChange}
+          className={styles.input}
+          name="theme"
+          defaultValue={theme}
+        >
           <option value="light">light</option>
           <option value="dark">dark</option>
           <option value="colorful">colorful</option>
