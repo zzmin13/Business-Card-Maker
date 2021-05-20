@@ -12,7 +12,7 @@ const Editor = ({ cards, addCard }) => {
           return <EditForm key={card.id} card={card} />;
         })}
       </div>
-      <AddForm addCard={addCard} cards={cards} />
+      <AddForm addCard={addCard} />
     </section>
   );
 };

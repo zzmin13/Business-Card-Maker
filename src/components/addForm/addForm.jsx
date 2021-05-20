@@ -1,43 +1,45 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 import styles from "./addForm.module.css";
 
-const AddForm = memo(({ addCard, cards }) => {
+const AddForm = memo(({ addCard }) => {
+  const formRef = useRef();
+  const nameRef = useRef();
+  const companyRef = useRef();
+  const titleRef = useRef();
+  const emailRef = useRef();
+  const messageRef = useRef();
+  const fileURLRef = useRef();
+  const themeRef = useRef();
+
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
-    const name = data.get("name");
-    const company = data.get("company");
-    const title = data.get("title");
-    const email = data.get("email");
-    const message = data.get("message");
-    const fileURL = data.get("fileURL");
-    const theme = data.get("theme");
-
-    console.log(fileURL); // fileURL은 더 보완할 필요가 있음
     const newCard = {
-      name,
-      company,
-      title,
-      email,
-      message,
-      fileURL,
-      theme,
-      id: cards.length + 1,
+      name: nameRef.current.value || "",
+      company: companyRef.current.value || "",
+      title: titleRef.current.value || "",
+      email: emailRef.current.value || "",
+      message: messageRef.current.value || "",
+      fileURL: fileURLRef.current.value || "",
+      theme: themeRef.current.value || "",
+      id: Date.now(),
     };
+    formRef.current.reset();
     addCard(newCard);
   };
   console.log(`addForm`);
   return (
     <>
-      <form className={styles.addform} onSubmit={handleOnSubmit}>
+      <form ref={formRef} className={styles.addform} onSubmit={handleOnSubmit}>
         <div className={styles.inputbox}>
           <input
+            ref={nameRef}
             className={styles.input}
             type="text"
             name="name"
             placeholder="Name"
           />
           <input
+            ref={companyRef}
             className={styles.input}
             type="text"
             name="company"
@@ -46,12 +48,14 @@ const AddForm = memo(({ addCard, cards }) => {
         </div>
         <div className={styles.inputbox}>
           <input
+            ref={titleRef}
             className={styles.input}
             type="text"
             name="title"
             placeholder="Title"
           />
           <input
+            ref={emailRef}
             className={styles.input}
             type="email"
             name="email"
@@ -59,6 +63,7 @@ const AddForm = memo(({ addCard, cards }) => {
           />
         </div>
         <textarea
+          ref={messageRef}
           className={styles.textarea}
           name="message"
           placeholder="Write down what you want to say."
@@ -71,12 +76,13 @@ const AddForm = memo(({ addCard, cards }) => {
             <h1>Select Image</h1>
           </label>
           <input
+            ref={fileURLRef}
             type="file"
             id="input-file"
             name="fileURL"
             style={{ display: "none" }}
           />
-          <select className={styles.input} name="theme">
+          <select ref={themeRef} className={styles.input} name="theme">
             <option value="light">light</option>
             <option value="dark">dark</option>
             <option value="colorful">colorful</option>

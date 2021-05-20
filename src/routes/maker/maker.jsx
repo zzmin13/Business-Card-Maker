@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
@@ -9,9 +9,9 @@ import Editor from "../../components/editor/editor";
 const Maker = memo((props) => {
   const { authService } = props;
   const [loginUser, setLoginUser] = useState("");
-  const addCard = (newCard) => {
+  const addCard = useCallback((newCard) => {
     setCards([...cards, newCard]);
-  };
+  }, []);
   const [cards, setCards] = useState([
     {
       name: "Ryan",
