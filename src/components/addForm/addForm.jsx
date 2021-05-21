@@ -87,7 +87,7 @@ const AddForm = memo(({ FileInput, addCard }) => {
           </select>
           <button
             type="submit"
-            className={`${styles.add_button} ${styles.input}`}
+            className={`${styles.button} ${styles.add} ${styles.input}`}
           >
             Add
           </button>

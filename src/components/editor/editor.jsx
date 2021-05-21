@@ -20,8 +20,8 @@ const Editor = ({ FileInput, cards, addCard, deleteCard, updateCard }) => {
             />
           );
         })}
+        <AddForm FileInput={FileInput} addCard={addCard} />
       </div>
-      <AddForm FileInput={FileInput} addCard={addCard} />
     </section>
   );
 };

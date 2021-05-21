@@ -44,22 +44,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 25px;
+  padding: 6px 5px;
   background-color: #ff6600;
   border-radius: 4px;
   color: white;
   cursor: pointer;
 }
-.add_button {
+.button {
   cursor: pointer;
   border: none;
-  background-color: blue;
   color: white;
-  padding: 6px 25px;
+  padding: 6px 5px;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
-.add_button:hover {
+.button:hover {
   opacity: 0.7;
   transform: scale(0.98);
+}
+.button.add {
+  background-color: blue;
 }

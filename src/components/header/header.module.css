@@ -1,6 +1,8 @@
 @value makerMint from "../../common/colors.css";
 @value makerWhite from "../../common/colors.css";
+
 .header {
+  width: 100%;
   background-color: makerMint;
   display: flex;
   justify-content: center;

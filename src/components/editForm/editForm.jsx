@@ -20,7 +20,6 @@ const EditForm = ({
     });
   };
   const onSelectImage = (file) => {
-    console.log(card);
     updateCard({
       ...card,
       fileName: file.name,
