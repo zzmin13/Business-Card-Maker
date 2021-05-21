@@ -79,19 +79,21 @@ const Maker = memo((props) => {
   console.log(`maker`);
   return (
     <div className={styles.container}>
-      <Header authService={authService} />
-      <div className={styles.main}>
-        <Editor
-          FileInput={FileInput}
-          cards={cards}
-          addCard={addCard}
-          deleteCard={deleteCard}
-          updateCard={updateCard}
-        />
-        <hr className={styles.line} />
-        <Preview cards={cards} />
+      <div className={styles.items}>
+        <Header authService={authService} />
+        <div className={styles.main}>
+          <Editor
+            FileInput={FileInput}
+            cards={cards}
+            addCard={addCard}
+            deleteCard={deleteCard}
+            updateCard={updateCard}
+          />
+          <hr className={styles.line} />
+          <Preview cards={cards} />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 });
