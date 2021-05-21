@@ -1,7 +1,7 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useState } from "react";
 import styles from "./addForm.module.css";
 
-const AddForm = memo(({ addCard }) => {
+const AddForm = memo(({ FileInput, addCard }) => {
   const formRef = useRef();
   const nameRef = useRef();
   const companyRef = useRef();
@@ -11,6 +11,14 @@ const AddForm = memo(({ addCard }) => {
   const fileURLRef = useRef();
   const themeRef = useRef();
 
+  const [file, setFile] = useState({ fileName: null, fileURL: null });
+  const onSelectImage = (file) => {
+    setFile({
+      fileName: file.name,
+      fileURL: file.url,
+    });
+    console.log(file);
+  };
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const newCard = {
@@ -19,11 +27,13 @@ const AddForm = memo(({ addCard }) => {
       title: titleRef.current.value || "",
       email: emailRef.current.value || "",
       message: messageRef.current.value || "",
-      fileURL: fileURLRef.current.value || "",
+      fileURL: file.fileURL || "",
+      fileName: file.fileName || "",
       theme: themeRef.current.value || "",
       id: Date.now(),
     };
     formRef.current.reset();
+    setFile({ fileName: null, fileURL: null });
     addCard(newCard);
   };
   console.log(`addForm`);
@@ -69,19 +79,7 @@ const AddForm = memo(({ addCard }) => {
           placeholder="Write down what you want to say."
         />
         <div className={styles.inputbox}>
-          <label
-            className={`${styles.file_button} ${styles.input}`}
-            htmlFor="input-file"
-          >
-            <h1>Select Image</h1>
-          </label>
-          <input
-            ref={fileURLRef}
-            type="file"
-            id="input-file"
-            name="fileURL"
-            style={{ display: "none" }}
-          />
+          <FileInput onSelectImage={onSelectImage} fileName={file.fileName} />
           <select ref={themeRef} className={styles.input} name="theme">
             <option value="light">light</option>
             <option value="dark">dark</option>

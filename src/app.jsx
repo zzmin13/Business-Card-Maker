@@ -4,7 +4,7 @@ import "./app.css";
 import Home from "./routes/home/home";
 import Maker from "./routes/maker/maker";
 
-function App({ authService, uploadCloudinary }) {
+function App({ authService, FileInput }) {
   return (
     <BrowserRouter>
       <Route
@@ -20,11 +20,7 @@ function App({ authService, uploadCloudinary }) {
         path={"/maker"}
         exact={true}
         render={(props) => (
-          <Maker
-            authService={authService}
-            uploadCloudinary={uploadCloudinary}
-            {...props}
-          />
+          <Maker FileInput={FileInput} authService={authService} {...props} />
         )}
       />
     </BrowserRouter>

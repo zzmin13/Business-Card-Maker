@@ -1,14 +1,13 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "./editForm.module.css";
 
 const EditForm = ({
+  FileInput,
   card,
   card: { name, company, title, email, theme, message, fileURL, fileName, id },
   deleteCard,
   updateCard,
-  uploadCloudinary,
 }) => {
-  const filenameRef = useRef();
   const handleDelete = () => {
     deleteCard(id);
   };
@@ -20,25 +19,16 @@ const EditForm = ({
       [attribute]: value,
     });
   };
-  const onSelectImage = (event) => {
-    const file = event.currentTarget.files[0];
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "xbb9nwgu");
-    filenameRef.current.innerHTML = "업로드 중..";
-    uploadCloudinary //
-      .uploadImage(data)
-      .then((result) => {
-        filenameRef.current.innerHTML = result.filename;
-        updateCard({
-          ...card,
-          fileURL: result.url,
-          fileName: result.filename,
-        });
-      });
+  const onSelectImage = (file) => {
+    console.log(card);
+    updateCard({
+      ...card,
+      fileName: file.name,
+      fileURL: file.url,
+    });
   };
-  console.log(`editForm`);
 
+  console.log(`editForm`);
   return (
     <form className={styles.editform}>
       <div className={styles.inputbox}>
@@ -85,18 +75,7 @@ const EditForm = ({
         onChange={onChange}
       />
       <div className={styles.inputbox}>
-        <label
-          className={`${styles.file_button} ${styles.input}`}
-          htmlFor="input-file"
-        >
-          <h1 ref={filenameRef}>Select Image</h1>
-        </label>
-        <input
-          type="file"
-          id="input-file"
-          style={{ display: "none" }}
-          onChange={onSelectImage}
-        />
+        <FileInput id={id} onSelectImage={onSelectImage} fileName={fileName} />
         <select
           onChange={onChange}
           className={styles.input}

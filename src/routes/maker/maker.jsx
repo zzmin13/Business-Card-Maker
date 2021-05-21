@@ -7,7 +7,7 @@ import Preview from "../../components/preview/preview";
 import Editor from "../../components/editor/editor";
 
 const Maker = memo((props) => {
-  const { authService, uploadCloudinary } = props;
+  const { authService, FileInput } = props;
   const history = useHistory();
   const [cards, setCards] = useState({
     1: {
@@ -68,13 +68,13 @@ const Maker = memo((props) => {
     });
   }, []);
 
-  const updateCard = useCallback((updatedCard) => {
+  const updateCard = (updatedCard) => {
     setCards((cards) => {
       const changedCards = { ...cards };
       changedCards[updatedCard.id] = updatedCard;
       return changedCards;
     });
-  }, []);
+  };
 
   console.log(`maker`);
   return (
@@ -82,11 +82,11 @@ const Maker = memo((props) => {
       <Header authService={authService} />
       <div className={styles.main}>
         <Editor
+          FileInput={FileInput}
           cards={cards}
           addCard={addCard}
           deleteCard={deleteCard}
           updateCard={updateCard}
-          uploadCloudinary={uploadCloudinary}
         />
         <hr className={styles.line} />
         <Preview cards={cards} />
