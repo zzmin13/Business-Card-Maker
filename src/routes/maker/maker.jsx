@@ -11,10 +11,9 @@ const Maker = memo((props) => {
   const history = useHistory();
   const {
     location: {
-      state: { uid },
+      state: { uid, avatar },
     },
   } = history;
-  console.log(uid);
   const [cards, setCards] = useState({});
 
   const showMyCards = (loadedcards) => {
@@ -58,7 +57,7 @@ const Maker = memo((props) => {
   return (
     <div className={styles.container}>
       <div className={styles.items}>
-        <Header authService={authService} />
+        <Header avatar={avatar} authService={authService} />
         <div className={styles.main}>
           <Editor
             FileInput={FileInput}

@@ -6,11 +6,12 @@ import styles from "./login.module.css";
 
 const Login = memo(({ database, authService }) => {
   const history = useHistory();
-  const goToMaker = (userId) => {
+  const goToMaker = (userId, photoURL) => {
     history.push({
       pathname: "/maker",
       state: {
         uid: userId,
+        avatar: photoURL,
       },
     });
   };
@@ -23,11 +24,12 @@ const Login = memo(({ database, authService }) => {
       // user가 없다면 데이터베이스에 등록
       database.writeUserData(user.uid, user.email, user.photoURL);
     }
-    goToMaker(user.uid);
+    // 로그인할 때 데이터베이스에서 회원 정보 추가하는 부분 여기다가 옮기기
+    goToMaker(user.uid, user.photoURL);
   };
   useEffect(() => {
     authService.onAuthChange((user) => {
-      user && goToMaker(user.uid);
+      user && goToMaker(user.uid, user.photoURL);
     });
   });
   console.log(`login`);

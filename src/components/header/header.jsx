@@ -1,20 +1,11 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./header.module.css";
 
 const Header = memo((props) => {
-  const { authService } = props;
-  const [loginUser, setLoginUser] = useState();
+  const { avatar, authService } = props;
+  const [avatarURL, setAvatarURL] = useState(avatar ? avatar : null);
   const [display, setDisplay] = useState(styles.invisible);
-  useEffect(() => {
-    authService.onAuthChange((user) => {
-      if (user) {
-        setLoginUser(authService.userExist());
-      }
-    });
-    return () => {
-      setLoginUser(null);
-    };
-  }, []);
+
   const showLogoutBtn = () => {
     if (display === styles.visible) {
       setDisplay(styles.invisible);
@@ -31,10 +22,10 @@ const Header = memo((props) => {
     <header className={styles.header}>
       <img src="/favicon.ico" alt="icon" className={styles.icon} />
       <h3 className={styles.title}>BUSINESS CARD MAKER</h3>
-      {loginUser ? (
+      {avatarURL ? (
         <>
           <img
-            src={loginUser.photoURL}
+            src={avatarURL}
             alt="profile"
             className={styles.profile}
             onClick={showLogoutBtn}
