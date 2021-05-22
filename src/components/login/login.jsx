@@ -4,7 +4,7 @@ import Footer from "../footer/footer";
 import Header from "../header/header";
 import styles from "./login.module.css";
 
-const Login = memo(({ authService }) => {
+const Login = memo(({ database, authService }) => {
   const history = useHistory();
   const goToMaker = (userId) => {
     history.push({
@@ -17,7 +17,13 @@ const Login = memo(({ authService }) => {
   const handleOAuthLogin = (event) => {
     authService
       .login(event.currentTarget.name) //
-      .then((data) => goToMaker(data.user.uid));
+      .then((data) => {
+        const email = data.user.email;
+        const avatar = data.user.photoURL;
+        const uid = data.user.uid;
+        database.writeUserData(uid, email, avatar);
+        goToMaker(uid);
+      });
   };
   useEffect(() => {
     authService.onAuthChange((user) => {

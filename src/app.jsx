@@ -4,7 +4,7 @@ import "./app.css";
 import Home from "./routes/home/home";
 import Maker from "./routes/maker/maker";
 
-function App({ authService, FileInput }) {
+function App({ database, authService, FileInput }) {
   return (
     <BrowserRouter>
       <Route
@@ -12,7 +12,7 @@ function App({ authService, FileInput }) {
         exact={true}
         render={(props) => (
           <>
-            <Home authService={authService} {...props} />
+            <Home authService={authService} database={database} {...props} />
           </>
         )}
       />
@@ -20,7 +20,12 @@ function App({ authService, FileInput }) {
         path={"/maker"}
         exact={true}
         render={(props) => (
-          <Maker FileInput={FileInput} authService={authService} {...props} />
+          <Maker
+            FileInput={FileInput}
+            authService={authService}
+            database={database}
+            {...props}
+          />
         )}
       />
     </BrowserRouter>

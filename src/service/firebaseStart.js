@@ -10,4 +10,23 @@ const firebaseConfig = {
   appId: `${APP_ID}`,
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
+
+// const dbRef = firebase.database().ref();
+// dbRef
+//   .child("cards")
+//   .get()
+//   .then((data) => {
+//     if (data.exists()) {
+//       console.log(data.val());
+//     } else {
+//       console.log("No data available");
+//     }
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
