@@ -7,43 +7,20 @@ import Preview from "../../components/preview/preview";
 import Editor from "../../components/editor/editor";
 
 const Maker = memo((props) => {
-  const { authService, FileInput } = props;
+  const { database, authService, FileInput } = props;
   const history = useHistory();
-  const [cards, setCards] = useState({
-    1: {
-      name: "Ryan",
-      company: "Kakao",
-      title: "Web Developer",
-      email: "ryan@kakao.com",
-      theme: "dark",
-      message: "Effort doesn't betray me.",
-      fileURL: null,
-      fileName: null,
-      id: "1",
+  const {
+    location: {
+      state: { uid },
     },
-    2: {
-      name: "Apeach",
-      company: "Line",
-      title: "Designer",
-      email: "apeach@naver.com",
-      theme: "light",
-      message: "Don't give up on your dream.",
-      fileURL: null,
-      fileName: null,
-      id: "2",
-    },
-    3: {
-      name: "Jordy",
-      company: "Naver",
-      title: "Product Manager",
-      email: "jordy@naver.com",
-      theme: "colorful",
-      message: "Let's keep going!",
-      fileURL: null,
-      fileName: null,
-      id: "3",
-    },
-  });
+  } = history;
+  console.log(uid);
+  const [cards, setCards] = useState({});
+
+  const showMyCards = (loadedcards) => {
+    const newCards = { ...loadedcards };
+    setCards(newCards);
+  };
 
   useEffect(() => {
     authService.onAuthChange((user) => {
@@ -51,7 +28,8 @@ const Maker = memo((props) => {
         history.push("/");
       }
     });
-  });
+    database.loadMyCards(uid, showMyCards);
+  }, []);
 
   const addCard = useCallback(
     (newCard) => {

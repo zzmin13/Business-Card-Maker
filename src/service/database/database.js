@@ -1,5 +1,22 @@
 import firebase from "firebase";
 class Database {
+  isUser(uid) {
+    const dbRef = firebase.database().ref();
+    return dbRef
+      .child("users")
+      .child(uid)
+      .get()
+      .then((result) => {
+        if (result.exists()) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   writeUserData(uid, email, avatar) {
     firebase
       .database()
@@ -47,6 +64,22 @@ class Database {
         },
       });
     console.log(`database.writeUserData 실행되었습니다.`);
+  }
+  loadMyCards(uid, showMyCards) {
+    firebase
+      .database()
+      .ref(`/users/${uid}/cards`)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          showMyCards(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
 

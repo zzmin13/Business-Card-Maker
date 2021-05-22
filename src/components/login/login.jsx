@@ -10,20 +10,20 @@ const Login = memo(({ database, authService }) => {
     history.push({
       pathname: "/maker",
       state: {
-        id: userId,
+        uid: userId,
       },
     });
   };
-  const handleOAuthLogin = (event) => {
-    authService
-      .login(event.currentTarget.name) //
-      .then((data) => {
-        const email = data.user.email;
-        const avatar = data.user.photoURL;
-        const uid = data.user.uid;
-        database.writeUserData(uid, email, avatar);
-        goToMaker(uid);
-      });
+  const handleOAuthLogin = async (event) => {
+    const data = await authService.login(event.currentTarget.name);
+    const user = await data.user;
+    const isUserExist = await database.isUser(user.uid);
+    console.log(isUserExist);
+    if (!isUserExist) {
+      // user가 없다면 데이터베이스에 등록
+      database.writeUserData(user.uid, user.email, user.photoURL);
+    }
+    goToMaker(user.uid);
   };
   useEffect(() => {
     authService.onAuthChange((user) => {
