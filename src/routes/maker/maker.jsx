@@ -11,10 +11,12 @@ const Maker = memo((props) => {
   const history = useHistory();
   const {
     location: {
+      state,
       state: { uid, avatar },
     },
   } = history;
   const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState(state && uid);
 
   const showMyCards = (loadedcards) => {
     const newCards = { ...loadedcards };
@@ -23,16 +25,29 @@ const Maker = memo((props) => {
 
   useEffect(() => {
     authService.onAuthChange((user) => {
-      if (!user) {
+      if (user) {
+        setUserId(uid);
+      } else {
         history.push("/");
       }
     });
-    database.loadMyCards(uid, showMyCards);
   }, []);
+
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = database.syncCards(userId, (cards) => {
+      setCards(cards);
+    });
+    return () => {
+      stopSync();
+    };
+  }, [userId]);
 
   const addCard = (newCard) => {
     setCards({ ...cards, [newCard.id]: newCard });
-    database.AddUserData(uid, newCard);
+    database.AddUserCard(uid, newCard);
   };
 
   const deleteCard = useCallback((id) => {
@@ -41,7 +56,7 @@ const Maker = memo((props) => {
       delete changedCards[id];
       return changedCards;
     });
-    database.DeleteUserData(uid, id);
+    database.DeleteUserCard(uid, id);
   }, []);
 
   const updateCard = (updatedCard) => {
@@ -50,7 +65,7 @@ const Maker = memo((props) => {
       changedCards[updatedCard.id] = updatedCard;
       return changedCards;
     });
-    database.updateUserData(uid, updatedCard);
+    database.updateUserCard(uid, updatedCard);
   };
 
   console.log(`maker`);

@@ -17,7 +17,9 @@ class Database {
         console.error(error);
       });
   }
-  writeUserData(uid, email, avatar) {
+
+  // registerNewUser: 새 유저를 등록하는 함수
+  registerNewUser(uid, email, avatar) {
     firebase
       .database()
       .ref(`users/${uid}`)
@@ -65,35 +67,31 @@ class Database {
       });
     console.log(`database.writeUserData 실행되었습니다.`);
   }
-  loadMyCards(uid, showMyCards) {
-    firebase
-      .database()
-      .ref(`/users/${uid}/cards`)
-      .get()
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          showMyCards(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  // syncCards : 변경 사항이 있을 때마다 데이터를 받아오는 함수
+  syncCards(userId, onUpdate) {
+    console.log(`syncCards 실행됨`);
+    const ref = firebase.database().ref(`/users/${userId}/cards`);
+    ref.on("value", (snapshot) => {
+      const value = snapshot.val();
+      if (value) {
+        onUpdate(value);
+      }
+    });
+    return () => ref.off();
   }
-  updateUserData(uid, updatedCard) {
+  updateUserCard(uid, updatedCard) {
     const updates = {};
     updates[`/users/${uid}/cards/${updatedCard.id}`] = updatedCard;
     return firebase.database().ref().update(updates);
   }
-  AddUserData(uid, newCard) {
+  AddUserCard(uid, newCard) {
     firebase //
       .database() //
       .ref(`users/${uid}/cards/${newCard.id}`) //
       .set(newCard);
     console.log(`AddUserData 실행되었습니다.`);
   }
-  DeleteUserData(uid, deleteCardId) {
+  DeleteUserCard(uid, deleteCardId) {
     firebase //
       .database() //
       .ref(`users/${uid}/cards/${deleteCardId}`) //

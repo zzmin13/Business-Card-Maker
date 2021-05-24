@@ -22,7 +22,7 @@ const Login = memo(({ database, authService }) => {
     console.log(isUserExist);
     if (!isUserExist) {
       // user가 없다면 데이터베이스에 등록
-      database.writeUserData(user.uid, user.email, user.photoURL);
+      database.registerNewUser(user.uid, user.email, user.photoURL);
     }
     // 로그인할 때 데이터베이스에서 회원 정보 추가하는 부분 여기다가 옮기기
     goToMaker(user.uid, user.photoURL);
