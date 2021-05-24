@@ -30,12 +30,9 @@ const Maker = memo((props) => {
     database.loadMyCards(uid, showMyCards);
   }, []);
 
-  const addCard = useCallback(
-    (newCard) => {
-      setCards({ ...cards, [newCard.id]: newCard });
-    },
-    [cards]
-  );
+  const addCard = (newCard) => {
+    setCards({ ...cards, [newCard.id]: newCard });
+  };
 
   const deleteCard = useCallback((id) => {
     setCards((cards) => {
@@ -51,6 +48,7 @@ const Maker = memo((props) => {
       changedCards[updatedCard.id] = updatedCard;
       return changedCards;
     });
+    database.updateUserData(uid, updatedCard);
   };
 
   console.log(`maker`);

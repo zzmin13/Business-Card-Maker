@@ -81,6 +81,11 @@ class Database {
         console.error(error);
       });
   }
+  updateUserData(uid, updatedCard) {
+    const updates = {};
+    updates[`/users/${uid}/cards/${updatedCard.id}`] = updatedCard;
+    return firebase.database().ref().update(updates);
+  }
 }
 
 export default Database;
