@@ -17,6 +17,7 @@ const Maker = memo((props) => {
   } = history;
   const [cards, setCards] = useState({});
   const [userId, setUserId] = useState(state && uid);
+  const [isLoading, setLoading] = useState(true);
 
   const showMyCards = (loadedcards) => {
     const newCards = { ...loadedcards };
@@ -39,6 +40,9 @@ const Maker = memo((props) => {
     }
     const stopSync = database.syncCards(userId, (cards) => {
       setCards(cards);
+      if (setLoading) {
+        setLoading(false);
+      }
     });
     return () => {
       stopSync();
@@ -74,15 +78,23 @@ const Maker = memo((props) => {
       <div className={styles.items}>
         <Header avatar={avatar} authService={authService} />
         <div className={styles.main}>
-          <Editor
-            FileInput={FileInput}
-            cards={cards}
-            addCard={addCard}
-            deleteCard={deleteCard}
-            updateCard={updateCard}
-          />
-          <hr className={styles.line} />
-          <Preview cards={cards} />
+          {isLoading ? (
+            <div className={styles.loading}>
+              <h1>Loading...</h1>
+            </div>
+          ) : (
+            <>
+              <Editor
+                FileInput={FileInput}
+                cards={cards}
+                addCard={addCard}
+                deleteCard={deleteCard}
+                updateCard={updateCard}
+              />
+              <hr className={styles.line} />
+              <Preview cards={cards} />
+            </>
+          )}
         </div>
         <Footer />
       </div>
