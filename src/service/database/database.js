@@ -93,6 +93,15 @@ class Database {
       .set(newCard);
     console.log(`AddUserData 실행되었습니다.`);
   }
+  DeleteUserData(uid, deleteCardId) {
+    firebase //
+      .database() //
+      .ref(`users/${uid}/cards/${deleteCardId}`) //
+      .remove();
+    console.log(
+      `DeleteUserData - [${uid}] 유저의 [${deleteCardId}] 카드가 삭제됨`
+    );
+  }
 }
 
 export default Database;

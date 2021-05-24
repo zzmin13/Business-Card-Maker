@@ -41,6 +41,7 @@ const Maker = memo((props) => {
       delete changedCards[id];
       return changedCards;
     });
+    database.DeleteUserData(uid, id);
   }, []);
 
   const updateCard = (updatedCard) => {
