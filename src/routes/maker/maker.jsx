@@ -32,6 +32,7 @@ const Maker = memo((props) => {
 
   const addCard = (newCard) => {
     setCards({ ...cards, [newCard.id]: newCard });
+    database.AddUserData(uid, newCard);
   };
 
   const deleteCard = useCallback((id) => {

@@ -86,6 +86,13 @@ class Database {
     updates[`/users/${uid}/cards/${updatedCard.id}`] = updatedCard;
     return firebase.database().ref().update(updates);
   }
+  AddUserData(uid, newCard) {
+    firebase //
+      .database() //
+      .ref(`users/${uid}/cards/${newCard.id}`) //
+      .set(newCard);
+    console.log(`AddUserData 실행되었습니다.`);
+  }
 }
 
 export default Database;
