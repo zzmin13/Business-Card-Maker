@@ -49,7 +49,7 @@ const Maker = memo((props) => {
       setCards({ ...cards, [newCard.id]: newCard });
       database.AddUserCard(uid, newCard);
     },
-    [cards, database, uid]
+    [database, cards, uid]
   );
 
   const deleteCard = useCallback(
@@ -84,6 +84,7 @@ const Maker = memo((props) => {
         <div className={styles.main}>
           {isLoading ? (
             <div className={styles.loading}>
+              <div className={styles.loading_circle}></div>
               <h1>Loading...</h1>
             </div>
           ) : (

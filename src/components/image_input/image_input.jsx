@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import styles from "./image_input.module.css";
-const ImageInput = (props) => {
+const ImageInput = memo((props) => {
   const { onSelectImage, fileName, imageUploader, id } = props;
   const [loading, setLoading] = useState(false);
   const filenameRef = useRef();
@@ -47,6 +47,6 @@ const ImageInput = (props) => {
       />
     </>
   );
-};
+});
 
 export default ImageInput;

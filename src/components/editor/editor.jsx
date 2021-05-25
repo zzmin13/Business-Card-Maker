@@ -1,9 +1,9 @@
-import React, { memo } from "react";
+import React from "react";
 import AddForm from "../addForm/addForm";
 import EditForm from "../editForm/editForm";
 import styles from "./editor.module.css";
 
-const Editor = memo(({ FileInput, cards, addCard, deleteCard, updateCard }) => {
+const Editor = ({ FileInput, cards, addCard, deleteCard, updateCard }) => {
   console.log(`editor`);
   return (
     <section className={styles.container}>
@@ -24,6 +24,6 @@ const Editor = memo(({ FileInput, cards, addCard, deleteCard, updateCard }) => {
       </div>
     </section>
   );
-});
+};
 
 export default Editor;

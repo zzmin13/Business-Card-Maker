@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import styles from "./card.module.css";
 const Card = memo(
-  ({ card: { name, company, title, email, theme, message, fileURL } }) => {
+  ({ card: { name, company, title, email, theme, message, fileURL, id } }) => {
     let themeType;
     if (theme === "light") {
       themeType = styles.light;
@@ -10,6 +10,7 @@ const Card = memo(
     } else if (theme === "colorful") {
       themeType = styles.colorful;
     }
+    console.log(`card - ${id}`);
     return (
       <li className={`${styles.card_container} ${themeType}`}>
         <img

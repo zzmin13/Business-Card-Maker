@@ -1,8 +1,8 @@
-import React, { memo } from "react";
+import React from "react";
 import Card from "../card/card";
 import styles from "./preview.module.css";
 
-const Preview = memo((props) => {
+const Preview = (props) => {
   const { cards } = props;
   console.log(`preview`);
   return (
@@ -15,6 +15,6 @@ const Preview = memo((props) => {
       </ul>
     </section>
   );
-});
+};
 
 export default Preview;
