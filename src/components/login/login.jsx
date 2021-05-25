@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import Footer from "../footer/footer";
 import Header from "../header/header";
 import styles from "./login.module.css";
@@ -57,6 +58,22 @@ const Login = ({ database, authService }) => {
           >
             Login
           </button>
+          <div className={styles.textBox}>
+            <Link
+              to={{
+                pathname: "/join",
+              }}
+            >
+              <span className={styles.join}>Join</span>
+            </Link>
+            <Link
+              to={{
+                pathname: "/find",
+              }}
+            >
+              <span className={styles.forgot}>Forgot your ID / Password?</span>
+            </Link>
+          </div>
         </form>
         <div className={styles.lineBox}>
           <hr className={styles.line} />

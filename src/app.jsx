@@ -3,6 +3,7 @@ import "./service/firebaseStart";
 import "./app.css";
 import Home from "./routes/home/home";
 import Maker from "./routes/maker/maker";
+import Join from "./routes/join/join";
 
 function App({ database, authService, FileInput }) {
   return (
@@ -26,6 +27,13 @@ function App({ database, authService, FileInput }) {
             database={database}
             {...props}
           />
+        )}
+      />
+      <Route
+        path={"/join"}
+        exact={true}
+        render={(props) => (
+          <Join authService={authService} database={database} {...props} />
         )}
       />
     </BrowserRouter>
