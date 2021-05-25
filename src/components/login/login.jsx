@@ -1,10 +1,10 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import Footer from "../footer/footer";
 import Header from "../header/header";
 import styles from "./login.module.css";
 
-const Login = memo(({ database, authService }) => {
+const Login = ({ database, authService }) => {
   const history = useHistory();
   const goToMaker = (userId, photoURL) => {
     history.push({
@@ -85,6 +85,6 @@ const Login = memo(({ database, authService }) => {
       <Footer />
     </section>
   );
-});
+};
 
 export default Login;

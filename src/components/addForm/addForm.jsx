@@ -8,7 +8,6 @@ const AddForm = memo(({ FileInput, addCard }) => {
   const titleRef = useRef();
   const emailRef = useRef();
   const messageRef = useRef();
-  const fileURLRef = useRef();
   const themeRef = useRef();
 
   const [file, setFile] = useState({ fileName: null, fileURL: null });

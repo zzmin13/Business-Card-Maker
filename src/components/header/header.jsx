@@ -3,7 +3,7 @@ import styles from "./header.module.css";
 
 const Header = memo((props) => {
   const { avatar, authService } = props;
-  const [avatarURL, setAvatarURL] = useState(avatar ? avatar : null);
+  const [avatarURL] = useState(avatar ? avatar : null);
   const [display, setDisplay] = useState(styles.invisible);
 
   const showLogoutBtn = () => {

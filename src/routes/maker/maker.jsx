@@ -19,11 +19,6 @@ const Maker = memo((props) => {
   const [userId, setUserId] = useState(state && uid);
   const [isLoading, setLoading] = useState(true);
 
-  const showMyCards = (loadedcards) => {
-    const newCards = { ...loadedcards };
-    setCards(newCards);
-  };
-
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (user) {
@@ -32,7 +27,7 @@ const Maker = memo((props) => {
         history.push("/");
       }
     });
-  }, []);
+  }, [authService, history, uid]);
 
   useEffect(() => {
     if (!userId) {
@@ -47,30 +42,39 @@ const Maker = memo((props) => {
     return () => {
       stopSync();
     };
-  }, [userId]);
+  }, [userId, database]);
 
-  const addCard = (newCard) => {
-    setCards({ ...cards, [newCard.id]: newCard });
-    database.AddUserCard(uid, newCard);
-  };
+  const addCard = useCallback(
+    (newCard) => {
+      setCards({ ...cards, [newCard.id]: newCard });
+      database.AddUserCard(uid, newCard);
+    },
+    [cards, database, uid]
+  );
 
-  const deleteCard = useCallback((id) => {
-    setCards((cards) => {
-      const changedCards = { ...cards };
-      delete changedCards[id];
-      return changedCards;
-    });
-    database.DeleteUserCard(uid, id);
-  }, []);
+  const deleteCard = useCallback(
+    (id) => {
+      setCards((cards) => {
+        const changedCards = { ...cards };
+        delete changedCards[id];
+        return changedCards;
+      });
+      database.DeleteUserCard(uid, id);
+    },
+    [database, uid]
+  );
 
-  const updateCard = (updatedCard) => {
-    setCards((cards) => {
-      const changedCards = { ...cards };
-      changedCards[updatedCard.id] = updatedCard;
-      return changedCards;
-    });
-    database.updateUserCard(uid, updatedCard);
-  };
+  const updateCard = useCallback(
+    (updatedCard) => {
+      setCards((cards) => {
+        const changedCards = { ...cards };
+        changedCards[updatedCard.id] = updatedCard;
+        return changedCards;
+      });
+      database.updateUserCard(uid, updatedCard);
+    },
+    [database, uid]
+  );
 
   console.log(`maker`);
   return (
