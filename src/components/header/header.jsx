@@ -26,6 +26,9 @@ const Header = memo((props) => {
         );
       }
     });
+    return () => {
+      setAvatarURL(null);
+    };
   }, [authService]);
 
   console.log(`header`);

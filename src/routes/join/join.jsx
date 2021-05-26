@@ -69,7 +69,7 @@ const Join = ({ authService, database }) => {
   return (
     <div className={styles.container}>
       <div className={styles.join}>
-        <Header />
+        <Header authService={authService} />
         <form onSubmit={handleSubmit} className={styles.form}>
           <h1 className={styles.title}>Join Business Card Maker</h1>
           <input
