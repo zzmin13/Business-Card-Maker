@@ -2,16 +2,21 @@ import React, { useRef } from "react";
 import styles from "./join.module.css";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
+import { useHistory } from "react-router";
 
 const Join = ({ authService, database }) => {
-  const nameRef = useRef();
+  const history = useHistory();
   const emailRef = useRef();
   const passwordRef = useRef();
   const password2Ref = useRef();
-  const handleSubmit = (event) => {
+  const passwordCheck = (password) => {
+    //6 ~ 20 영문, 최소 1개 이상의 숫자 혹은 특수문자를 포함해야 한다.
+    const passwordRules = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+    return passwordRules.test(password);
+  };
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const userInfo = {
-      name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
       password2: password2Ref.current.value,
@@ -19,7 +24,46 @@ const Join = ({ authService, database }) => {
     if (userInfo.password !== userInfo.password2) {
       alert("비밀번호가 일치하지 않습니다.");
     } else {
-      authService.createUser(userInfo.name, userInfo.email, userInfo.password);
+      // 비밀번호가 일치 한다면
+      if (passwordCheck(userInfo.password)) {
+        try {
+          const response = await authService.createUser(
+            userInfo.email,
+            userInfo.password
+          );
+          if (response !== undefined) {
+            const isUserExist = await database.isUser(response.user.uid);
+            if (!isUserExist) {
+              try {
+                database.registerNewUser(
+                  response.user.uid,
+                  response.user.email,
+                  response.user.photoURL
+                    ? response.user.photoURL
+                    : "https://res.cloudinary.com/dgdkgkx1k/image/upload/v1621576762/xznnmjj9tfodjcbypkc9.jpg"
+                );
+                history.push({
+                  pathname: "/maker",
+                  state: {
+                    uid: response.user.uid,
+                    avatar: response.user.photoURL
+                      ? response.user.photoURL
+                      : "https://res.cloudinary.com/dgdkgkx1k/image/upload/v1621576762/xznnmjj9tfodjcbypkc9.jpg",
+                  },
+                });
+              } catch (error) {
+                console.log(error);
+              }
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        alert(
+          "비밀번호는 6~20자 사이의 영문, 숫자, 특수문자를 포함하여야 합니다."
+        );
+      }
     }
   };
   return (
@@ -28,14 +72,6 @@ const Join = ({ authService, database }) => {
         <Header />
         <form onSubmit={handleSubmit} className={styles.form}>
           <h1 className={styles.title}>Join Business Card Maker</h1>
-          <input
-            className={styles.input}
-            type="text"
-            name="name"
-            placeholder="name"
-            required={true}
-            ref={nameRef}
-          />
           <input
             className={styles.input}
             type="email"

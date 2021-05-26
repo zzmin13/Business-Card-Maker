@@ -17,6 +17,7 @@ const Header = memo((props) => {
     authService.logout();
   };
   console.log(`header`);
+  console.log(avatarURL);
 
   return (
     <header className={styles.header}>

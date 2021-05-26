@@ -33,29 +33,24 @@ class AuthService {
         throw new Error(`not supported provider : ${providerName}`);
     }
   }
-  createUser(name, email, password) {
-    if (password.length)
-      firebaseAuth
-        .createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          console.log(userCredential);
-          const user = userCredential.user;
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          if (errorCode === "auth/weak-password") {
-            alert("비밀번호는 6자 이상이어야 합니다.");
-          } else if (errorCode === "auth/email-already-in-use") {
-            alert("이미 존재하는 이메일 입니다.");
-          } else if (errorCode === "auth/invalid-email") {
-            alert("이메일이 유효하지 않습니다.");
-          } else {
-            alert(errorMessage);
-          }
-          console.log(error);
-        });
+  createUser(email, password) {
+    return firebaseAuth
+      .createUserWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === "auth/weak-password") {
+          alert("비밀번호는 6자 이상이어야 합니다.");
+        } else if (errorCode === "auth/email-already-in-use") {
+          alert("이미 존재하는 이메일 입니다.");
+        } else if (errorCode === "auth/invalid-email") {
+          alert("이메일이 유효하지 않습니다.");
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
   }
 }
 
