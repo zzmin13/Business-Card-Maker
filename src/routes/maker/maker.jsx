@@ -41,6 +41,7 @@ const Maker = memo((props) => {
     });
     return () => {
       stopSync();
+      setLoading(true);
     };
   }, [userId, database]);
 

@@ -22,7 +22,9 @@ class Database {
   registerNewUser(uid, email, avatar) {
     firebaseDatabase.ref(`users/${uid}`).set({
       email,
-      avatar,
+      avatar: avatar
+        ? avatar
+        : "https://res.cloudinary.com/dgdkgkx1k/image/upload/v1621576762/xznnmjj9tfodjcbypkc9.jpg",
       cards: {
         1: {
           name: "Chunsik",

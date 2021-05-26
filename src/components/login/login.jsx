@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import Footer from "../footer/footer";
@@ -7,20 +7,25 @@ import styles from "./login.module.css";
 
 const Login = ({ database, authService }) => {
   const history = useHistory();
-  const goToMaker = (userId, photoURL) => {
-    history.push({
-      pathname: "/maker",
-      state: {
-        uid: userId,
-        avatar: photoURL,
-      },
-    });
-  };
+  const idRef = useRef();
+  const passwordRef = useRef();
+
+  const goToMaker = useCallback(
+    (userId, photoURL) => {
+      history.push({
+        pathname: "/maker",
+        state: {
+          uid: userId,
+          avatar: photoURL,
+        },
+      });
+    },
+    [history]
+  );
   const handleOAuthLogin = async (event) => {
     const data = await authService.login(event.currentTarget.name);
     const user = await data.user;
     const isUserExist = await database.isUser(user.uid);
-    console.log(isUserExist);
     if (!isUserExist) {
       // user가 없다면 데이터베이스에 등록
       database.registerNewUser(user.uid, user.email, user.photoURL);
@@ -28,31 +33,46 @@ const Login = ({ database, authService }) => {
     // 로그인할 때 데이터베이스에서 회원 정보 추가하는 부분 여기다가 옮기기
     goToMaker(user.uid, user.photoURL);
   };
+  const handleEmailLogin = (event) => {
+    event.preventDefault();
+    const id = idRef.current.value;
+    const password = passwordRef.current.value;
+    authService.localLogin(id, password).then((result) => {
+      if (result !== undefined) {
+        const user = result.user;
+        goToMaker(user.uid, user.photoURL);
+      }
+    });
+  };
+
   useEffect(() => {
     authService.onAuthChange((user) => {
       user && goToMaker(user.uid, user.photoURL);
     });
-  });
+  }, [authService, goToMaker]);
   console.log(`login`);
   return (
     <section className={styles.home}>
       <Header authService={authService} />
       <section className={styles.loginBox}>
         <h1 className={styles.title}>LOGIN</h1>
-        <form className={styles.form}>
+        <form onSubmit={handleEmailLogin} className={styles.form}>
           <input
             className={styles.input}
             type="text"
             placeholder="id"
             name="id"
+            ref={idRef}
           />
           <input
             className={styles.input}
             type="password"
             placeholder="password"
             name="password"
+            ref={passwordRef}
           />
           <button
+            onSubmit={handleEmailLogin}
             className={`${styles.loginButton} ${styles.button}`}
             type="submit"
           >

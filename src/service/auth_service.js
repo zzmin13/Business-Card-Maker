@@ -52,6 +52,19 @@ class AuthService {
         console.log(error);
       });
   }
+  localLogin(email, password) {
+    return firebaseAuth
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        if (error.code === "auth/wrong-password") {
+          alert("비밀번호 오류입니다.");
+        } else if (error.code === "auth/invalid-email") {
+          alert("유효하지 않은 이메일 형식입니다.");
+        } else if (error.code === "auth/user-not-found") {
+          alert("존재하지 않는 이메일 입니다.");
+        }
+      });
+  }
 }
 
 export default AuthService;

@@ -1,9 +1,9 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./header.module.css";
 
 const Header = memo((props) => {
-  const { avatar, authService } = props;
-  const [avatarURL] = useState(avatar ? avatar : null);
+  const { authService } = props;
+  const [avatarURL, setAvatarURL] = useState(null);
   const [display, setDisplay] = useState(styles.invisible);
 
   const showLogoutBtn = () => {
@@ -16,9 +16,19 @@ const Header = memo((props) => {
   const handleLogout = () => {
     authService.logout();
   };
-  console.log(`header`);
-  console.log(avatarURL);
+  useEffect(() => {
+    authService.onAuthChange((user) => {
+      if (user) {
+        setAvatarURL(
+          user.photoURL
+            ? user.photoURL
+            : "https://res.cloudinary.com/dgdkgkx1k/image/upload/v1621576762/xznnmjj9tfodjcbypkc9.jpg"
+        );
+      }
+    });
+  }, [authService]);
 
+  console.log(`header`);
   return (
     <header className={styles.header}>
       <img src="/favicon.ico" alt="icon" className={styles.icon} />
