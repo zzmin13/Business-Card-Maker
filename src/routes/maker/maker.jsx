@@ -86,6 +86,7 @@ const Maker = memo((props) => {
         <div className={styles.main}>
           {isLoading ? (
             <div className={styles.loading}>
+              <div className={styles.loading_circle}></div>
               <h1>Loading...</h1>
             </div>
           ) : (
