@@ -49,6 +49,7 @@ const Login = ({ database, authService }) => {
     authService.onAuthChange((user) => {
       user && goToMaker(user.uid, user.photoURL);
     });
+    return () => {};
   }, [authService, goToMaker]);
   console.log(`login`);
   return (

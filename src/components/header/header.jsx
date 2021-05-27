@@ -34,7 +34,11 @@ const Header = memo((props) => {
   console.log(`header`);
   return (
     <header className={styles.header}>
-      <img src="/favicon.ico" alt="icon" className={styles.icon} />
+      <img
+        src="https://res.cloudinary.com/dgdkgkx1k/image/upload/v1622017140/favicon_tebnq5.ico"
+        alt="icon"
+        className={styles.icon}
+      />
       <h3 className={styles.title}>BUSINESS CARD MAKER</h3>
       {avatarURL ? (
         <>

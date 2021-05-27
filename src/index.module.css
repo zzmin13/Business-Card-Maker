@@ -23,3 +23,11 @@ a {
   text-decoration: none;
   color: black;
 }
+
+/* 모바일에서 스크롤 보이게 하기 (ios) */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background: #a9a9a9;
+}

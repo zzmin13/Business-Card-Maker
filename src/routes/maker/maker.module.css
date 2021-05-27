@@ -12,9 +12,8 @@
   background-color: white;
 }
 .main {
-  /* overflow: hidden;
-  height: 100%; */
   min-height: 0;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
   display: flex;
 }

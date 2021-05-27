@@ -12,22 +12,24 @@ const Maker = memo((props) => {
   const {
     location: {
       state,
-      state: { uid, avatar },
+      // state: { uid, avatar },
     },
   } = history;
   const [cards, setCards] = useState({});
-  const [userId, setUserId] = useState(state && uid);
+  const [userId, setUserId] = useState(state && state.uid);
+  const [avatar, setAvatar] = useState(state && state.avatar);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (user) {
-        setUserId(uid);
+        setUserId(user.uid);
+        setAvatar(user.photoURL);
       } else {
         history.push("/");
       }
     });
-  }, [authService, history, uid]);
+  }, [authService, history]);
 
   useEffect(() => {
     if (!userId) {
@@ -41,16 +43,15 @@ const Maker = memo((props) => {
     });
     return () => {
       stopSync();
-      setLoading(true);
     };
   }, [userId, database]);
 
   const addCard = useCallback(
     (newCard) => {
       setCards({ ...cards, [newCard.id]: newCard });
-      database.AddUserCard(uid, newCard);
+      database.AddUserCard(userId, newCard);
     },
-    [database, cards, uid]
+    [cards, database, userId]
   );
 
   const deleteCard = useCallback(
@@ -60,9 +61,9 @@ const Maker = memo((props) => {
         delete changedCards[id];
         return changedCards;
       });
-      database.DeleteUserCard(uid, id);
+      database.DeleteUserCard(userId, id);
     },
-    [database, uid]
+    [database, userId]
   );
 
   const updateCard = useCallback(
@@ -72,9 +73,9 @@ const Maker = memo((props) => {
         changedCards[updatedCard.id] = updatedCard;
         return changedCards;
       });
-      database.updateUserCard(uid, updatedCard);
+      database.updateUserCard(userId, updatedCard);
     },
-    [database, uid]
+    [database, userId]
   );
 
   console.log(`maker`);
@@ -85,7 +86,6 @@ const Maker = memo((props) => {
         <div className={styles.main}>
           {isLoading ? (
             <div className={styles.loading}>
-              <div className={styles.loading_circle}></div>
               <h1>Loading...</h1>
             </div>
           ) : (

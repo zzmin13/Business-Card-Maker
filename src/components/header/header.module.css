@@ -34,6 +34,7 @@
 }
 
 .logout_button {
+  z-index: 1;
   border: none;
   position: absolute;
   background: #5677f4;
@@ -68,4 +69,17 @@
 
 .visible {
   display: flex;
+}
+
+/* tablet(768~1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+/* mobile(~768px) */
+@media (max-width: 768px) {
+  .header {
+    justify-content: start;
+  }
+  .icon {
+    margin-left: 10px;
+  }
 }

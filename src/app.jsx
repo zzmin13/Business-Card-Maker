@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import "./service/firebaseStart";
 import "./app.css";
 import Home from "./routes/home/home";
@@ -7,7 +7,7 @@ import Join from "./routes/join/join";
 
 function App({ database, authService, FileInput }) {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Route
         path={["/", "/home"]}
         exact={true}
@@ -36,7 +36,7 @@ function App({ database, authService, FileInput }) {
           <Join authService={authService} database={database} {...props} />
         )}
       />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
